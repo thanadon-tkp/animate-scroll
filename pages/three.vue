@@ -54,7 +54,6 @@ export default {
     render() {
       requestAnimationFrame(this.render);
       this.stat.begin();
-
       const currentTimeLine = window.pageYOffset / 400;
 
       // this.controls.update();
@@ -91,24 +90,23 @@ export default {
       hemi.position.set(0, 300, 300);
       this.scene.add(hemi);
 
-      let geo = new THREE.SphereGeometry(100, 10, 10);
-      let mat = new THREE.MeshBasicMaterial({
-        color: 0x00ff00,
-        wireframe: true,
-      });
-
       // Model Loader
       const model = {
         path: "/cat/scene.gltf",
       };
       this.loadGLTF(model, (data) => {
         this.myModel = data.scene;
-        this.myModel.scale.set(80, 80, 80);
-        this.myModel.position.z = 200;
+        this.myModel.scale.set(120, 120, 120);
         this.scene.add(this.myModel);
       });
 
-      this.sphere = new THREE.Mesh(geo, mat);
+      // let geo = new THREE.SphereGeometry(100, 10, 10);
+      // let mat = new THREE.MeshBasicMaterial({
+      //   color: 0x00ff00,
+      //   wireframe: true,
+      // });
+
+      // this.sphere = new THREE.Mesh(geo, mat);
       // this.scene.add(this.sphere);
 
       // controls
@@ -122,8 +120,8 @@ export default {
   mounted() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, this.W / this.H, 1.3);
-    this.renderer = new THREE.WebGL1Renderer();
-
+    this.renderer = new THREE.WebGL1Renderer({ antialias:true});
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.W, this.H);
 
     this.$refs["model"].appendChild(this.renderer.domElement);
